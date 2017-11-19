@@ -1,0 +1,37 @@
+{
+  "name": "iotapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_PATH=./src node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeckel/iotapi.git"
+  },
+  "keywords": [
+    "iot",
+    "api",
+    "mosca",
+    "mqtt"
+  ],
+  "author": "Julien Mercier (devci@j3ck3l.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeckel/iotapi/issues"
+  },
+  "homepage": "https://github.com/jeckel/iotapi#readme",
+  "dependencies": {
+    "mqtt": "^2.14.0",
+    "pg": "^7.4.0",
+    "weather-js": "^2.0.0",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0"
+  }
+}
