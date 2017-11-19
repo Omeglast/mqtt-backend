@@ -29,7 +29,10 @@ setInterval(() => {
       return;
     }
     const payload = {
-      'local.temperature': res.temperature,
+      source: 'weather',
+      sensor: {
+        'temperature': res.temperature,
+      }
     };
     logger.info(`Publish current temperature: ${res.temperature}`);
 
