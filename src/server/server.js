@@ -14,7 +14,7 @@ const weather = new Weather({ logger, settings });
 
 mqttClient.on('connect', () => {
   logger.info('MQTT Server connected');
-  mqttClient.subscribe('probe');
+  mqttClient.subscribe('sensor/#');
 });
 
 mqttClient.on('message', (topic, message) => listener.handle(topic, message));
@@ -28,15 +28,8 @@ setInterval(() => {
       logger.error(err.message, { err });
       return;
     }
-    const payload = {
-      source: 'weather',
-      sensor: {
-        'temperature': res.temperature,
-      }
-    };
     logger.info(`Publish current temperature: ${res.temperature}`);
-
-    mqttClient.publish('probe', JSON.stringify(payload));
+    mqttClient.publish('sensor/weather/temperature', JSON.stringify({ value: res.temperature }));
 
   })
 }, settings.weather.interval);

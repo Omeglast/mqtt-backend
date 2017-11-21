@@ -7,16 +7,15 @@ class Listener {
     this.logger = logger;
   }
 
-  saveRecord(source, sensor, value) {
+  saveRecord(sensor, value) {
     const values = [
-      source,
       new Date(),
       sensor,
       value
     ];
     this.logger.debug('Saving record in database', values);
 
-    this.postgres.query('INSERT INTO ts(source, time, sensor, value) VALUES($1, $2, $3, $4) RETURNING *', values, (err, res) => {
+    this.postgres.query('INSERT INTO ts(time, sensor, value) VALUES($1, $2, $3) RETURNING *', values, (err, res) => {
       if (err) {
         return this.logger.error(err.message, { err });
       }
@@ -27,9 +26,10 @@ class Listener {
   handle(topic, message) {
     this.logger.debug(`Server-Received: ${topic}`, { message: message.toString() });
     const data = JSON.parse(message.toString());
-    Object.keys(data.sensor).forEach((sensor) => {
+    this.saveRecord(topic, data.value);
+    /*Object.keys(data.sensor).forEach((sensor) => {
       this.saveRecord(data.source, sensor, data[sensor]);
-    })
+    })*/
   }
 }
 
