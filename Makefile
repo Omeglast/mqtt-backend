@@ -20,3 +20,6 @@ npm:
 
 build:
 	@docker build -t jeckel/omeglast-server:latest .
+
+lint:
+	@${NPM_CMD} run eslint
