@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+    - "8"
+
+notifications:
+    email:
+        recipients:
+            - devci@j3ck3l.me
+        on_success: change # default: change
+        on_failure: always # default: always
+
+install:
+    - npm install
+
+script:
+    - npm run eslint
