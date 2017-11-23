@@ -2,8 +2,8 @@ import { Pool } from 'pg';
 
 
 class Listener {
-  constructor({ settings, logger }) {
-    this.postgres = new Pool(settings.postgres);
+  constructor({ postgres, logger }) {
+    this.postgres = postgres;
     this.logger = logger;
   }
 
