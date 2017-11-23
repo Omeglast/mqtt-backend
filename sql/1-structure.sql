@@ -1,0 +1,1 @@
+CREATE TABLE ts (id SERIAL, time TIMESTAMPTZ, sensor VARCHAR(256), value REAL);
