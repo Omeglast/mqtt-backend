@@ -15,6 +15,9 @@ NPM_CMD=docker run --rm -it -v `pwd`:/app --workdir /app $(USER) node:8-alpine n
 install:
 	@${NPM_CMD} install
 
+setup:
+	${NPM_CMD} run setup
+
 npm:
 	@${NPM_CMD} ${CMD}
 
