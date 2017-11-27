@@ -20,7 +20,7 @@ class Logger {
    * @param {string} msg
    * @param {object=} meta
    */
-  log(level, msg, meta) {
+  log(level, msg, meta = {}) {
     this.logger.log(level, msg, meta);
   }
 
@@ -29,7 +29,7 @@ class Logger {
    * @param {string} msg
    * @param {object=} meta
    */
-  debug(msg, meta) {
+  debug(msg, meta = {}) {
     this.log('debug', msg, meta);
   }
 
@@ -38,7 +38,7 @@ class Logger {
    * @param {string} msg
    * @param {object=} meta
    */
-  info(msg, meta) {
+  info(msg, meta = {}) {
     this.log('info', msg, meta);
   }
 
@@ -47,7 +47,7 @@ class Logger {
    * @param {string} msg
    * @param {object=} meta
    */
-  warn(msg, meta) {
+  warn(msg, meta = {}) {
     this.log('warning', msg, meta);
   }
 
@@ -56,7 +56,7 @@ class Logger {
    * @param {string} msg
    * @param {object=} meta
    */
-  error(msg, meta) {
+  error(msg, meta = {}) {
     this.log('error', msg, meta);
   }
 }
