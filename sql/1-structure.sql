@@ -13,11 +13,11 @@ CREATE TABLE IF NOT EXISTS ts (
 -- Create optimized version of the 'ts' table
 CREATE TABLE IF NOT EXISTS ts_periods(
   id       SERIAL PRIMARY KEY NOT NULL,
-  start_tz TIMESTAMPTZ NOT NULL,
-  end_tz   TIMESTAMPTZ NULL,
-  sensor   VARCHAR(256) NOT NULL,
-  value    REAL NOT NULL,
-  unit     VARCHAR(16) NULL,
+  start_tz TIMESTAMPTZ        NOT NULL,
+  end_tz   TIMESTAMPTZ        NULL,
+  sensor   VARCHAR(256)       NOT NULL,
+  value    REAL               NOT NULL,
+  unit     VARCHAR(16)        NULL,
   CHECK(end_tz IS NULL OR end_tz >= start_tz),
   UNIQUE (sensor, start_tz)
 );
