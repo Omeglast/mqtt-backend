@@ -12,13 +12,13 @@ const CURRENT_VERSION = 1;
  * Get current database version
  */
 const getDbVersion = () =>
-  postgres.query('SELECT to_regclass(\'version\') AS table_exists')
+  postgres.query('SELECT to_regclass(\'version\') AS tableExists')
     .then((res) => {
-      if (res.rows[0].table_exists === null) {
+      if (res.rows.length === 0 || res.rows[0].tableExists === null) {
         return 0;
       }
       return postgres.query('SELECT version FROM version')
-        .then(res => (res.rows.length === 0) ? 0 : res.rows[0].version)
+        .then(res2 => ((res2.rows.length === 0) ? 0 : res2.rows[0].version))
         .catch(err => logger.error(err.message, err));
     })
     .catch(err => logger.error(err.message, err));
@@ -27,7 +27,7 @@ const getDbVersion = () =>
  * Update version number
  * @param version
  */
-const setVersion = (version) => postgres.query('UPDATE version SET version = $1', [version])
+const setVersion = version => postgres.query('UPDATE version SET version = $1', [version])
   .then(res => logger.debug('Version updated', res))
   .catch(err => logger.error(err.message, err));
 
