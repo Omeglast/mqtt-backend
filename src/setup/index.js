@@ -45,8 +45,8 @@ const setupPostgres = () => {
  */
 getDbVersion().then((version) => {
   logger.debug(`Version: ${version}`);
-  if (version === 0) {
+  //if (version === 0) {
     setupPostgres();
-  }
+  //}
   setVersion(CURRENT_VERSION);
 });
