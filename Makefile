@@ -1,5 +1,13 @@
 .PHONY: install npm up stop down
 
+IMAGE=jeckel/omeglast-server
+BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
+ifeq ($(BRANCH),master)
+	TAG:=latest
+else
+	TAG:=$(BRANCH)
+endif
+
 # Detect OS to adapt to local user
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
@@ -22,7 +30,7 @@ npm:
 	@${NPM_CMD} ${CMD}
 
 build:
-	@docker build -t jeckel/omeglast-server:latest .
+	@docker build -t ${IMAGE}:${TAG} .
 
 lint:
 	@${NPM_CMD} run eslint
