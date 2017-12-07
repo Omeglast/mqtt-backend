@@ -24,7 +24,11 @@ class Listener {
   handle(topic, message) {
     this.logger.debug(`Server-Received: ${topic}`, { message: message.toString() });
     const data = JSON.parse(message.toString());
-    this.saveRecord(topic, data.value);
+    if (data.value === undefined) {
+      this.saveRecord(topic, data);
+    } else {
+      this.saveRecord(topic, data.value);
+    }
   }
 }
 
