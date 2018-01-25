@@ -28,6 +28,7 @@
   "homepage": "https://github.com/jeckel/iotapi#readme",
   "dependencies": {
     "babel-register": "^6.26.0",
+    "influx": "^5.0.7",
     "mqtt": "^2.15.1",
     "pg": "^7.4.1",
     "weather-js": "^2.0.0",
