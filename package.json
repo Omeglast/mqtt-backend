@@ -1,10 +1,12 @@
 {
-  "name": "iotapi",
+  "name": "omeglast-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Omeglast backend, read message from topics and store them into the longterm storage",
   "main": "index.js",
   "scripts": {
+    "build": "babel src -d dist",
     "start": "NODE_PATH=./src node src/index.js",
+    "start-prod": "NODE_PATH=./dist node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint src"
   },
