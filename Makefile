@@ -10,7 +10,7 @@ else
 	USER:=--user "$(UID):$(GID)"
 endif
 
-NPM_CMD=docker run --rm -it -v `pwd`:/app --workdir /app $(USER) node:8-alpine npm
+NPM_CMD=docker run --rm -it -v `pwd`:/app --workdir /app $(USER) node:9-alpine npm
 
 install:
 	@${NPM_CMD} install
