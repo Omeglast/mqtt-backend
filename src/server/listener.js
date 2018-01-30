@@ -1,20 +1,19 @@
-const Influx = require('influx');
+import { InfluxDB, FieldType, escape } from 'influx';
 
-const influx = new Influx.InfluxDB({
-    host: 'mqtt-influxdb',
-    database: 'omeglast',
-    schema: [
-        {
-            measurement: 'sensors',
-            fields: {
-//                sensor: Influx.FieldType.STRING,
-                value: Influx.FieldType.INTEGER
-            },
-            tags: [
-                'sensor'
-            ]
-        }
-    ]
+const influx = new InfluxDB({
+  host: 'mqtt-influxdb',
+  database: 'omeglast',
+  schema: [
+    {
+      measurement: 'sensors',
+      fields: {
+        value: FieldType.INTEGER
+      },
+      tags: [
+        'sensor'
+      ]
+    }
+  ]
 });
 
 class Listener {
@@ -40,24 +39,21 @@ class Listener {
     });
 
     influx.writePoints([
-        {
-            measurement: 'sensors',
-            tags: { sensor },
-            fields: { value },
-        }
+      {
+        measurement: 'sensors',
+        tags: { sensor },
+        fields: { value },
+      }
     ]).then(() => {
-          return influx.query(`
-    select * from response_times
-    where host = ${Influx.escape.stringLit('backend')}
-    order by time desc
-    limit 10
-  `)
-      }).then(rows => {
-          rows.forEach(row => console.log(`A request to ${row.path} took ${row.duration}ms`))
-      })
-
-
-
+      return influx.query(`
+        select * from response_times
+        where sensor = ${escape.stringLit(sensor)}
+        order by time desc
+        limit 10
+      `)
+    }).then(rows => {
+      rows.forEach(row => this.logger.info(`A request to ${row.path} took ${row.duration}ms`))
+    }).catch(err => this.logger.error(err.message, { err }));
   }
 
   handle(topic, message) {
