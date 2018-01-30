@@ -7,13 +7,13 @@ const influx = new InfluxDB({
     {
       measurement: 'sensors',
       fields: {
-        value: FieldType.INTEGER
+        value: FieldType.INTEGER,
       },
       tags: [
-        'sensor'
-      ]
-    }
-  ]
+        'sensor',
+      ],
+    },
+  ],
 });
 
 class Listener {
@@ -43,16 +43,14 @@ class Listener {
         measurement: 'sensors',
         tags: { sensor },
         fields: { value },
-      }
-    ]).then(() => {
-      return influx.query(`
+      },
+    ]).then(() => influx.query(`
         select * from response_times
         where sensor = ${escape.stringLit(sensor)}
         order by time desc
         limit 10
-      `)
-    }).then(rows => {
-      rows.forEach(row => this.logger.info(`A request to ${row.path} took ${row.duration}ms`))
+      `)).then((rows) => {
+      rows.forEach(row => this.logger.info(`A request to ${row.path} took ${row.duration}ms`));
     }).catch(err => this.logger.error(err.message, { err }));
   }
 
